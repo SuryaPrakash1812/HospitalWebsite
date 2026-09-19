@@ -1,0 +1,3140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="VistaraCare Medical Centre — fictional demonstration hospital website.">
+    <title>VistaraCare Medical Centre — Advanced Care. Personal Attention.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.468.0/lucide.min.css">
+    <style>
+                /* =========================================================
+           Variables / Reset
+        ========================================================= */
+                :root {
+                    --ink: #10283a;
+                    --navy: #0b2334;
+                    --blue: #176b91;
+                    --teal: #2f8f8a;
+                    --mist: #edf5f6;
+                    --paper: #fbfcfb;
+                    --line: #d9e4e6;
+                    --muted: #637681;
+                    --warm: #d79a62;
+                    --white: #fff;
+                    --shadow: 0 18px 50px rgba(16,40,58,.10);
+                    --radius: 18px;
+                    --max: 1220px;
+                }
+
+                * {
+                    box-sizing: border-box
+                }
+
+                html {
+                    scroll-behavior: smooth
+                }
+
+                body {
+                    margin: 0;
+                    background: var(--paper);
+                    color: var(--ink);
+                    font-family: "DM Sans",system-ui,sans-serif;
+                    line-height: 1.6
+                }
+
+                    body.modal-open {
+                        overflow: hidden
+                    }
+
+                img {
+                    max-width: 100%;
+                    display: block
+                }
+
+                button, input, select, textarea {
+                    font: inherit
+                }
+
+                button, a {
+                    -webkit-tap-highlight-color: transparent
+                }
+
+                a {
+                    color: inherit;
+                    text-decoration: none
+                }
+
+                button {
+                    cursor: pointer
+                }
+
+                :focus-visible {
+                    outline: 3px solid rgba(47,143,138,.35);
+                    outline-offset: 3px
+                }
+
+                .container {
+                    width: min(calc(100% - 40px),var(--max));
+                    margin: auto
+                }
+
+                .section {
+                    padding: 112px 0
+                }
+
+                .eyebrow {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    color: var(--teal);
+                    font-size: .74rem;
+                    letter-spacing: .16em;
+                    font-weight: 700;
+                    text-transform: uppercase
+                }
+
+                    .eyebrow:before {
+                        content: "";
+                        width: 28px;
+                        height: 1px;
+                        background: currentColor
+                    }
+
+                h1, h2, h3, h4 {
+                    font-family: Manrope,sans-serif;
+                    line-height: 1.08;
+                    margin: 0 0 20px;
+                    letter-spacing: -.035em
+                }
+
+                h1 {
+                    font-size: clamp(3.2rem,6vw,6rem)
+                }
+
+                h2 {
+                    font-size: clamp(2.2rem,4vw,4rem)
+                }
+
+                h3 {
+                    font-size: 1.35rem
+                }
+
+                p {
+                    margin: 0 0 18px;
+                    color: var(--muted)
+                }
+
+                .btn {
+                    border: 0;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 9px;
+                    min-height: 48px;
+                    padding: 0 19px;
+                    border-radius: 10px;
+                    font-weight: 700;
+                    transition: .25s ease
+                }
+
+                .btn-primary {
+                    background: var(--navy);
+                    color: white
+                }
+
+                    .btn-primary:hover {
+                        background: #173d55;
+                        transform: translateY(-1px)
+                    }
+
+                .btn-light {
+                    background: white;
+                    color: var(--navy);
+                    border: 1px solid var(--line)
+                }
+
+                    .btn-light:hover {
+                        border-color: #a9c2c7;
+                        background: #f5f9f9
+                    }
+
+                .btn-text {
+                    background: none;
+                    padding: 0;
+                    color: var(--blue);
+                    min-height: auto
+                }
+
+                    .btn-text:hover {
+                        gap: 13px
+                    }
+
+                .muted {
+                    color: var(--muted)
+                }
+
+                .kicker {
+                    font-size: .86rem;
+                    color: var(--muted)
+                }
+
+                .reveal {
+                    opacity: 0;
+                    transform: translateY(22px);
+                    transition: opacity .7s ease,transform .7s ease
+                }
+
+                    .reveal.visible {
+                        opacity: 1;
+                        transform: none
+                    }
+
+                /* =========================================================
+           Header
+        ========================================================= */
+                .site-header {
+                    position: sticky;
+                    top: 0;
+                    z-index: 50;
+                    background: rgba(251,252,251,.94);
+                    backdrop-filter: blur(12px);
+                    border-bottom: 1px solid transparent;
+                    transition: .25s
+                }
+
+                    .site-header.scrolled {
+                        box-shadow: 0 8px 28px rgba(16,40,58,.08);
+                        border-color: var(--line)
+                    }
+
+                .nav {
+                    height: 82px;
+                    display: flex;
+                    align-items: center;
+                    gap: 30px
+                }
+
+                .brand {
+                    display: flex;
+                    align-items: center;
+                    gap: 11px;
+                    flex-shrink: 0
+                }
+
+                .brand-mark {
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 11px;
+                    background: var(--navy);
+                    display: grid;
+                    place-items: center;
+                    color: #fff
+                }
+
+                    .brand-mark svg {
+                        width: 22px
+                    }
+
+                .brand-name {
+                    font: 800 1rem Manrope,sans-serif;
+                    letter-spacing: -.02em
+                }
+
+                .brand-sub {
+                    display: block;
+                    color: var(--muted);
+                    font-size: .62rem;
+                    letter-spacing: .12em;
+                    text-transform: uppercase;
+                    margin-top: 1px
+                }
+
+                .nav-links {
+                    display: flex;
+                    align-items: center;
+                    gap: 23px;
+                    margin-left: auto
+                }
+
+                    .nav-links a {
+                        font-size: .84rem;
+                        font-weight: 600;
+                        color: #415864;
+                        position: relative
+                    }
+
+                        .nav-links a:after {
+                            content: "";
+                            position: absolute;
+                            left: 0;
+                            right: 100%;
+                            bottom: -8px;
+                            height: 2px;
+                            background: var(--teal);
+                            transition: .25s
+                        }
+
+                        .nav-links a:hover, .nav-links a.active {
+                            color: var(--navy)
+                        }
+
+                            .nav-links a.active:after, .nav-links a:hover:after {
+                                right: 0
+                            }
+
+                .header-actions {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px
+                }
+
+                .emergency-mini {
+                    font-size: .72rem;
+                    color: #536974;
+                    line-height: 1.25;
+                    text-align: right
+                }
+
+                    .emergency-mini strong {
+                        display: block;
+                        color: var(--navy)
+                    }
+
+                .menu-btn {
+                    display: none;
+                    border: 1px solid var(--line);
+                    background: white;
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 10px
+                }
+
+                .mobile-nav {
+                    display: none
+                }
+
+                /* =========================================================
+           Hero
+        ========================================================= */
+                .hero {
+                    padding: 62px 0 54px;
+                    background: linear-gradient(110deg,#f6f9f8 0%,#eef6f5 55%,#e8f1f2 100%);
+                    overflow: hidden
+                }
+
+                .hero-grid {
+                    display: grid;
+                    grid-template-columns: minmax(0,1.02fr) minmax(430px,.98fr);
+                    gap: 60px;
+                    align-items: center
+                }
+
+                .hero-copy {
+                    padding: 28px 0 30px
+                }
+
+                .hero h1 {
+                    max-width: 720px
+                }
+
+                    .hero h1 em {
+                        font-style: normal;
+                        color: var(--blue)
+                    }
+
+                .hero-copy > p {
+                    font-size: 1.08rem;
+                    max-width: 610px
+                }
+
+                .hero-actions {
+                    display: flex;
+                    gap: 12px;
+                    flex-wrap: wrap;
+                    margin: 30px 0 34px
+                }
+
+                .hero-note {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    color: #526a74;
+                    font-size: .78rem
+                }
+
+                .pulse {
+                    width: 9px;
+                    height: 9px;
+                    background: #5ea48e;
+                    border-radius: 50%;
+                    box-shadow: 0 0 0 5px rgba(94,164,142,.14)
+                }
+
+                .hero-visual {
+                    position: relative;
+                    min-height: 600px
+                }
+
+                .hero-photo {
+                    height: 600px;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 110px 18px 18px 18px;
+                    box-shadow: var(--shadow);
+                    background: #dce8e9
+                }
+
+                .hero-caption {
+                    position: absolute;
+                    left: -34px;
+                    bottom: 34px;
+                    background: var(--navy);
+                    color: white;
+                    padding: 21px 24px;
+                    width: 260px;
+                    border-radius: 12px;
+                    box-shadow: 0 15px 35px rgba(11,35,52,.22)
+                }
+
+                    .hero-caption small {
+                        color: #a9cbd0;
+                        display: block;
+                        margin-bottom: 4px
+                    }
+
+                    .hero-caption strong {
+                        display: block;
+                        font: 700 1.03rem Manrope
+                    }
+
+                    .hero-caption span {
+                        display: block;
+                        color: #c9d8dc;
+                        font-size: .77rem;
+                        margin-top: 5px
+                    }
+
+                /* =========================================================
+           Quick access
+        ========================================================= */
+                .quick {
+                    background: var(--navy);
+                    color: white
+                }
+
+                .quick-inner {
+                    display: grid;
+                    grid-template-columns: 1.2fr repeat(5,1fr);
+                    min-height: 92px
+                }
+
+                .quick-intro, .quick-item {
+                    display: flex;
+                    align-items: center
+                }
+
+                .quick-intro {
+                    padding-right: 25px;
+                    border-right: 1px solid rgba(255,255,255,.12)
+                }
+
+                    .quick-intro strong {
+                        font: 700 1rem Manrope
+                    }
+
+                .quick-item {
+                    gap: 11px;
+                    padding: 0 18px;
+                    border-right: 1px solid rgba(255,255,255,.10);
+                    font-size: .82rem;
+                    color: #d7e3e6;
+                    transition: .2s
+                }
+
+                    .quick-item:hover {
+                        background: rgba(255,255,255,.06);
+                        color: white
+                    }
+
+                    .quick-item svg {
+                        width: 19px;
+                        color: #8ec9c1;
+                        flex: none
+                    }
+
+                /* =========================================================
+           About
+        ========================================================= */
+                .about {
+                    background: #fff
+                }
+
+                .about-grid {
+                    display: grid;
+                    grid-template-columns: .9fr 1.1fr;
+                    gap: 100px;
+                    align-items: center
+                }
+
+                .about-art {
+                    position: relative;
+                    padding: 0 0 40px 38px
+                }
+
+                .about-main-img {
+                    width: 78%;
+                    height: 500px;
+                    object-fit: cover;
+                    border-radius: 18px 100px 18px 18px
+                }
+
+                .about-small-img {
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    width: 44%;
+                    height: 245px;
+                    object-fit: cover;
+                    border: 12px solid white;
+                    border-radius: 12px
+                }
+
+                .year-badge {
+                    position: absolute;
+                    left: 0;
+                    top: 70px;
+                    background: var(--warm);
+                    color: #fff;
+                    padding: 18px 20px;
+                    border-radius: 9px;
+                    box-shadow: 0 12px 25px rgba(80,48,24,.18)
+                }
+
+                    .year-badge b {
+                        display: block;
+                        font: 800 1.65rem Manrope;
+                        line-height: 1
+                    }
+
+                    .year-badge span {
+                        font-size: .67rem;
+                        letter-spacing: .08em;
+                        text-transform: uppercase
+                    }
+
+                .about-copy h2 {
+                    max-width: 610px
+                }
+
+                .about-copy > p {
+                    max-width: 650px
+                }
+
+                .check-list {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 13px 30px;
+                    padding: 0;
+                    margin: 30px 0;
+                    list-style: none
+                }
+
+                    .check-list li {
+                        font-size: .88rem;
+                        font-weight: 600;
+                        display: flex;
+                        gap: 9px;
+                        align-items: center
+                    }
+
+                    .check-list svg {
+                        width: 17px;
+                        color: var(--teal)
+                    }
+
+                .signature {
+                    border-top: 1px solid var(--line);
+                    padding-top: 20px;
+                    display: flex;
+                    align-items: center;
+                    gap: 14px
+                }
+
+                .signature-mark {
+                    font: 700 1.3rem Manrope;
+                    color: var(--navy)
+                }
+
+                .signature small {
+                    display: block;
+                    color: var(--muted)
+                }
+
+                /* =========================================================
+           Departments
+        ========================================================= */
+                .departments {
+                    background: var(--mist)
+                }
+
+                .section-head {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: end;
+                    gap: 30px;
+                    margin-bottom: 46px
+                }
+
+                    .section-head > div:last-child {
+                        max-width: 410px
+                    }
+
+                .feature-depts {
+                    display: grid;
+                    grid-template-columns: 1.15fr .85fr .85fr;
+                    gap: 18px
+                }
+
+                .dept-feature {
+                    min-height: 390px;
+                    padding: 31px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: end;
+                    color: white;
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 16px;
+                    background: #193d51
+                }
+
+                    .dept-feature:before {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        background: linear-gradient(to top,rgba(6,26,38,.82),transparent 60%);
+                        z-index: 1
+                    }
+
+                    .dept-feature img {
+                        position: absolute;
+                        inset: 0;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        opacity: .8;
+                        transition: .5s
+                    }
+
+                    .dept-feature:hover img {
+                        transform: scale(1.04)
+                    }
+
+                    .dept-feature > * {
+                        position: relative;
+                        z-index: 2
+                    }
+
+                    .dept-feature .dept-num {
+                        font-size: .7rem;
+                        letter-spacing: .12em;
+                        margin-bottom: auto;
+                        color: #c6e2e1
+                    }
+
+                    .dept-feature h3 {
+                        font-size: 1.65rem;
+                        margin-bottom: 8px
+                    }
+
+                    .dept-feature p {
+                        color: #e2eaeb;
+                        font-size: .84rem;
+                        margin: 0;
+                        max-width: 370px
+                    }
+
+                .directory {
+                    margin-top: 18px;
+                    background: white;
+                    border: 1px solid var(--line);
+                    border-radius: 14px;
+                    padding: 10px;
+                    display: grid;
+                    grid-template-columns: repeat(4,1fr)
+                }
+
+                .dept-link {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 15px 16px;
+                    border-bottom: 1px solid #edf1f2;
+                    font-size: .86rem;
+                    font-weight: 600;
+                    color: #39525e;
+                    background: none;
+                    border-left: 0;
+                    border-top: 0;
+                    border-right: 0;
+                    text-align: left
+                }
+
+                    .dept-link:nth-last-child(-n+4) {
+                        border-bottom: 0
+                    }
+
+                    .dept-link:hover {
+                        color: var(--blue);
+                        background: #f6faf9
+                    }
+
+                    .dept-link svg {
+                        width: 15px
+                    }
+
+                /* =========================================================
+           Doctor Finder
+        ========================================================= */
+                .doctors {
+                    background: #fff
+                }
+
+                .finder {
+                    background: #f3f7f6;
+                    border: 1px solid var(--line);
+                    padding: 20px;
+                    border-radius: 16px;
+                    display: grid;
+                    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+                    gap: 10px;
+                    margin-bottom: 36px
+                }
+
+                .field {
+                    position: relative
+                }
+
+                    .field input, .field select, .field textarea {
+                        width: 100%;
+                        border: 1px solid #d3dfe1;
+                        background: white;
+                        color: var(--ink);
+                        border-radius: 9px;
+                        min-height: 48px;
+                        padding: 0 14px;
+                        outline: none
+                    }
+
+                    .field textarea {
+                        padding-top: 12px;
+                        min-height: 130px;
+                        resize: vertical
+                    }
+
+                        .field input:focus, .field select:focus, .field textarea:focus {
+                            border-color: var(--teal);
+                            box-shadow: 0 0 0 3px rgba(47,143,138,.10)
+                        }
+
+                .doctor-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3,1fr);
+                    gap: 18px
+                }
+
+                .doctor-card {
+                    border-top: 1px solid var(--line);
+                    padding-top: 16px;
+                    display: grid;
+                    grid-template-columns: 100px 1fr;
+                    gap: 17px
+                }
+
+                .doctor-photo {
+                    width: 100px;
+                    height: 120px;
+                    object-fit: cover;
+                    border-radius: 9px;
+                    background: #dbe7e8
+                }
+
+                .doctor-card h3 {
+                    font-size: 1.05rem;
+                    margin: 2px 0 5px
+                }
+
+                .doctor-meta {
+                    font-size: .76rem;
+                    color: var(--muted);
+                    margin-bottom: 9px
+                }
+
+                .doctor-tags {
+                    font-size: .72rem;
+                    color: #49616c;
+                    line-height: 1.55;
+                    margin-bottom: 13px
+                }
+
+                .card-actions {
+                    display: flex;
+                    gap: 12px;
+                    align-items: center
+                }
+
+                    .card-actions .btn {
+                        font-size: .72rem;
+                        min-height: 36px;
+                        padding: 0 12px
+                    }
+
+                .empty {
+                    grid-column: 1/-1;
+                    text-align: center;
+                    padding: 45px;
+                    border: 1px dashed var(--line);
+                    color: var(--muted)
+                }
+
+                /* =========================================================
+           Appointment
+        ========================================================= */
+                .appointment {
+                    background: var(--navy);
+                    color: white
+                }
+
+                    .appointment .eyebrow {
+                        color: #8ec9c1
+                    }
+
+                    .appointment p {
+                        color: #b9cbd0
+                    }
+
+                .appointment-grid {
+                    display: grid;
+                    grid-template-columns: .72fr 1.28fr;
+                    gap: 70px;
+                    align-items: start
+                }
+
+                .steps {
+                    margin-top: 38px
+                }
+
+                .step {
+                    display: flex;
+                    gap: 14px;
+                    position: relative;
+                    padding-bottom: 28px;
+                    color: #71909c
+                }
+
+                    .step:not(:last-child):after {
+                        content: "";
+                        position: absolute;
+                        left: 15px;
+                        top: 34px;
+                        width: 1px;
+                        height: calc(100% - 25px);
+                        background: #345061
+                    }
+
+                    .step.active {
+                        color: white
+                    }
+
+                    .step.done {
+                        color: #91c9c2
+                    }
+
+                .step-no {
+                    width: 31px;
+                    height: 31px;
+                    border: 1px solid #4d6877;
+                    border-radius: 50%;
+                    display: grid;
+                    place-items: center;
+                    font-size: .68rem;
+                    flex: none;
+                    background: var(--navy);
+                    position: relative;
+                    z-index: 1
+                }
+
+                .step.active .step-no {
+                    background: #e9f5f2;
+                    color: var(--navy);
+                    border-color: #e9f5f2
+                }
+
+                .step.done .step-no {
+                    background: var(--teal);
+                    border-color: var(--teal);
+                    color: white
+                }
+
+                .step b {
+                    display: block;
+                    font-size: .86rem;
+                    margin-top: 5px
+                }
+
+                .booking-panel {
+                    background: white;
+                    color: var(--ink);
+                    border-radius: 17px;
+                    padding: 34px;
+                    box-shadow: 0 25px 70px rgba(0,0,0,.18)
+                }
+
+                .booking-contact h3 {
+                    font-size: 1.5rem;
+                    margin-top: 8px
+                }
+
+                .contact-booking-card {
+                    display: grid;
+                    grid-template-columns: 42px 1fr auto;
+                    align-items: center;
+                    gap: 14px;
+                    padding: 18px 0;
+                    border-top: 1px solid var(--line)
+                }
+
+                    .contact-booking-card:first-of-type {
+                        margin-top: 25px
+                    }
+
+                .contact-booking-icon {
+                    width: 42px;
+                    height: 42px;
+                    border-radius: 9px;
+                    background: #eaf4f2;
+                    color: var(--teal);
+                    display: grid;
+                    place-items: center
+                }
+
+                    .contact-booking-icon svg {
+                        width: 19px
+                    }
+
+                .contact-booking-card span {
+                    display: block;
+                    font-size: .68rem;
+                    color: var(--muted);
+                    text-transform: uppercase;
+                    letter-spacing: .08em
+                }
+
+                .contact-booking-card strong {
+                    display: block;
+                    font: 700 .93rem Manrope;
+                    margin: 2px 0
+                }
+
+                .contact-booking-card small {
+                    display: block;
+                    color: var(--muted);
+                    font-size: .7rem
+                }
+
+                .contact-booking-card .btn {
+                    min-height: 38px;
+                    font-size: .72rem;
+                    padding: 0 13px
+                }
+
+                .booking-note {
+                    display: flex;
+                    gap: 10px;
+                    margin-top: 18px;
+                    padding: 13px;
+                    background: #f3f7f6;
+                    border: 1px solid var(--line);
+                    border-radius: 8px;
+                    color: var(--muted);
+                    font-size: .7rem
+                }
+
+                    .booking-note svg {
+                        width: 16px;
+                        flex: none;
+                        color: var(--teal)
+                    }
+
+                .booking-actions {
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                    margin-top: 20px;
+                    padding-top: 20px;
+                    border-top: 1px solid var(--line)
+                }
+
+                    .booking-actions .btn {
+                        font-size: .74rem
+                    }
+
+                .booking-panel h3 {
+                    font-size: 1.35rem
+                }
+
+                .booking-step {
+                    display: none
+                }
+
+                    .booking-step.active {
+                        display: block
+                    }
+
+                .form-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 16px
+                }
+
+                    .form-grid .full {
+                        grid-column: 1/-1
+                    }
+
+                .step-actions {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 24px;
+                    border-top: 1px solid var(--line);
+                    padding-top: 20px
+                }
+
+                .slot-grid {
+                    display: grid;
+                    grid-template-columns: repeat(4,1fr);
+                    gap: 8px;
+                    margin-top: 10px
+                }
+
+                .slot {
+                    border: 1px solid var(--line);
+                    background: #fff;
+                    border-radius: 8px;
+                    min-height: 42px;
+                    color: #425a64;
+                    font-size: .78rem
+                }
+
+                    .slot:hover, .slot.selected {
+                        border-color: var(--teal);
+                        background: #edf7f5;
+                        color: #175e59
+                    }
+
+                .confirmation {
+                    text-align: center;
+                    padding: 20px 10px
+                }
+
+                    .confirmation .success-icon {
+                        width: 62px;
+                        height: 62px;
+                        margin: 0 auto 20px;
+                        border-radius: 50%;
+                        background: #e5f3ef;
+                        color: #21766f;
+                        display: grid;
+                        place-items: center
+                    }
+
+                .reference {
+                    font: 700 1.1rem Manrope;
+                    color: var(--navy);
+                    background: #f2f6f5;
+                    display: inline-block;
+                    padding: 10px 15px;
+                    border-radius: 8px;
+                    margin: 8px 0 22px
+                }
+
+                /* =========================================================
+           Facilities / Why
+        ========================================================= */
+                .facilities {
+                    background: #f7f6f1
+                }
+
+                .facility-layout {
+                    display: grid;
+                    grid-template-columns: 1.1fr .9fr;
+                    gap: 24px
+                }
+
+                .facility-main {
+                    position: relative;
+                    min-height: 520px;
+                    border-radius: 18px;
+                    overflow: hidden;
+                    background: #183d50;
+                    color: white
+                }
+
+                    .facility-main img {
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        inset: 0;
+                        object-fit: cover;
+                        opacity: .78
+                    }
+
+                    .facility-main:after {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        background: linear-gradient(20deg,rgba(8,31,44,.85),transparent 70%)
+                    }
+
+                .facility-copy {
+                    position: absolute;
+                    z-index: 2;
+                    left: 32px;
+                    bottom: 32px;
+                    max-width: 470px
+                }
+
+                    .facility-copy p {
+                        color: #d4e0e2
+                    }
+
+                .facility-list {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1px;
+                    background: #d9dedc;
+                    border: 1px solid #d9dedc
+                }
+
+                .facility-item {
+                    background: #fff;
+                    padding: 25px 22px;
+                    min-height: 129px
+                }
+
+                    .facility-item svg {
+                        color: var(--teal);
+                        width: 21px;
+                        margin-bottom: 17px
+                    }
+
+                    .facility-item strong {
+                        display: block;
+                        font: 700 .93rem Manrope
+                    }
+
+                    .facility-item span {
+                        font-size: .73rem;
+                        color: var(--muted)
+                    }
+
+                .why {
+                    background: var(--navy);
+                    color: white
+                }
+
+                .why-grid {
+                    display: grid;
+                    grid-template-columns: .75fr 1.25fr;
+                    gap: 80px;
+                    align-items: start
+                }
+
+                .why h2 {
+                    max-width: 420px
+                }
+
+                .editorial-list {
+                    border-top: 1px solid #365161
+                }
+
+                .editorial-row {
+                    display: grid;
+                    grid-template-columns: 65px 1fr 25px;
+                    gap: 20px;
+                    padding: 25px 0;
+                    border-bottom: 1px solid #365161;
+                    align-items: start
+                }
+
+                    .editorial-row .num {
+                        font: 600 .72rem Manrope;
+                        color: #80b9b5
+                    }
+
+                    .editorial-row h3 {
+                        font-size: 1.25rem;
+                        color: white;
+                        margin-bottom: 7px
+                    }
+
+                    .editorial-row p {
+                        font-size: .83rem;
+                        margin: 0;
+                        color: #a9bec4;
+                        max-width: 620px
+                    }
+
+                    .editorial-row svg {
+                        color: #8ebbb8
+                    }
+
+                /* =========================================================
+           Journey
+        ========================================================= */
+                .journey {
+                    background: white
+                }
+
+                .timeline {
+                    display: grid;
+                    grid-template-columns: repeat(5,1fr);
+                    position: relative;
+                    margin-top: 60px
+                }
+
+                    .timeline:before {
+                        content: "";
+                        position: absolute;
+                        top: 15px;
+                        left: 8%;
+                        right: 8%;
+                        height: 1px;
+                        background: #cbdadc
+                    }
+
+                .timeline-item {
+                    position: relative;
+                    text-align: center;
+                    padding: 0 15px
+                }
+
+                .timeline-dot {
+                    width: 31px;
+                    height: 31px;
+                    margin: 0 auto 25px;
+                    background: white;
+                    border: 1px solid #a9c1c4;
+                    border-radius: 50%;
+                    display: grid;
+                    place-items: center;
+                    font-size: .67rem;
+                    font-weight: 700;
+                    color: var(--blue);
+                    position: relative
+                }
+
+                .timeline-item.active .timeline-dot {
+                    background: var(--navy);
+                    border-color: var(--navy);
+                    color: white;
+                    box-shadow: 0 0 0 7px #e9f1f1
+                }
+
+                .timeline-item h3 {
+                    font-size: .98rem
+                }
+
+                .timeline-item p {
+                    font-size: .74rem
+                }
+
+                /* =========================================================
+           Testimonials
+        ========================================================= */
+                .testimonials {
+                    background: #eaf3f2
+                }
+
+                .quote-layout {
+                    display: grid;
+                    grid-template-columns: .7fr 1.3fr;
+                    gap: 80px
+                }
+
+                .quote-lead {
+                    padding-top: 15px
+                }
+
+                    .quote-lead h2 {
+                        font-size: clamp(2rem,3.3vw,3.2rem)
+                    }
+
+                .quote-list {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 16px
+                }
+
+                .quote {
+                    background: white;
+                    padding: 28px;
+                    border: 1px solid #dce6e5;
+                    border-radius: 12px
+                }
+
+                    .quote:first-child {
+                        grid-column: span 2;
+                        background: var(--navy);
+                        color: white;
+                        padding: 34px
+                    }
+
+                    .quote p {
+                        font-family: Manrope;
+                        font-size: 1.03rem;
+                        color: #516873
+                    }
+
+                    .quote:first-child p {
+                        color: #e0eaeb;
+                        font-size: 1.18rem
+                    }
+
+                .quote-person {
+                    border-top: 1px solid #dce6e5;
+                    margin-top: 22px;
+                    padding-top: 14px;
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 10px;
+                    font-size: .72rem;
+                    color: #61757d
+                }
+
+                .quote:first-child .quote-person {
+                    border-color: #365161;
+                    color: #b5c8cd
+                }
+
+                .rating {
+                    color: var(--warm);
+                    letter-spacing: .12em
+                }
+
+                /* =========================================================
+           Health Library / Packages
+        ========================================================= */
+                .library {
+                    background: #fff
+                }
+
+                .article-grid {
+                    display: grid;
+                    grid-template-columns: 1.25fr .75fr .75fr;
+                    gap: 18px
+                }
+
+                .article {
+                    border-top: 1px solid var(--line);
+                    padding-top: 15px
+                }
+
+                    .article:first-child {
+                        grid-row: span 2
+                    }
+
+                .article-img {
+                    height: 185px;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 10px;
+                    margin-bottom: 17px;
+                    background: #dce7e7
+                }
+
+                .article:first-child .article-img {
+                    height: 300px
+                }
+
+                .article-cat {
+                    font-size: .66rem;
+                    letter-spacing: .12em;
+                    text-transform: uppercase;
+                    color: var(--teal);
+                    font-weight: 700
+                }
+
+                .article h3 {
+                    font-size: 1.12rem;
+                    margin: 7px 0 9px
+                }
+
+                .article:first-child h3 {
+                    font-size: 1.65rem
+                }
+
+                .article-meta {
+                    font-size: .68rem;
+                    color: var(--muted)
+                }
+
+                .article button {
+                    margin-top: 12px;
+                    font-size: .74rem
+                }
+
+                .packages {
+                    background: var(--mist)
+                }
+
+                .package-layout {
+                    display: grid;
+                    grid-template-columns: .8fr 1.2fr;
+                    gap: 65px;
+                    align-items: start
+                }
+
+                .package-intro h2 {
+                    max-width: 450px
+                }
+
+                .demo-note {
+                    font-size: .68rem;
+                    color: #687b80;
+                    background: #dfeceb;
+                    padding: 7px 10px;
+                    display: inline-block;
+                    border-radius: 5px
+                }
+
+                .package-list {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 13px
+                }
+
+                .package {
+                    background: white;
+                    border: 1px solid var(--line);
+                    padding: 25px;
+                    border-radius: 12px;
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 260px
+                }
+
+                    .package:nth-child(2) {
+                        background: var(--navy);
+                        color: white;
+                        border-color: var(--navy)
+                    }
+
+                        .package:nth-child(2) p, .package:nth-child(2) li {
+                            color: #bfd0d4
+                        }
+
+                    .package h3 {
+                        font-size: 1.1rem
+                    }
+
+                .price {
+                    font: 800 1.7rem Manrope;
+                    margin: 3px 0 15px
+                }
+
+                    .price small {
+                        font: 500 .7rem "DM Sans";
+                        color: var(--muted)
+                    }
+
+                .package ul {
+                    padding-left: 18px;
+                    color: #61737b;
+                    font-size: .76rem;
+                    flex: 1
+                }
+
+                .package li {
+                    margin: 4px 0
+                }
+
+                .package .btn {
+                    align-self: flex-start
+                }
+
+                /* =========================================================
+           Emergency / Contact / Footer
+        ========================================================= */
+                .emergency {
+                    background: #dbece8;
+                    padding: 68px 0
+                }
+
+                .emergency-inner {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 35px
+                }
+
+                .emergency h2 {
+                    font-size: clamp(2rem,3.5vw,3.4rem);
+                    margin-bottom: 10px
+                }
+
+                .emergency p {
+                    margin: 0
+                }
+
+                .emergency-actions {
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap
+                }
+
+                .contact {
+                    background: #fff
+                }
+
+                .contact-grid {
+                    display: grid;
+                    grid-template-columns: .75fr 1.25fr;
+                    gap: 75px
+                }
+
+                .contact-details {
+                    border-top: 1px solid var(--line)
+                }
+
+                .contact-line {
+                    padding: 19px 0;
+                    border-bottom: 1px solid var(--line);
+                    display: grid;
+                    grid-template-columns: 38px 1fr;
+                    gap: 12px
+                }
+
+                    .contact-line svg {
+                        color: var(--teal);
+                        width: 19px;
+                        margin-top: 3px
+                    }
+
+                    .contact-line strong {
+                        display: block;
+                        font: 700 .84rem Manrope;
+                        margin-bottom: 2px
+                    }
+
+                    .contact-line span {
+                        font-size: .78rem;
+                        color: var(--muted)
+                    }
+
+                .map {
+                    height: 180px;
+                    margin-top: 24px;
+                    border: 1px solid var(--line);
+                    border-radius: 12px;
+                    position: relative;
+                    overflow: hidden;
+                    background: #edf2ef
+                }
+
+                    .map svg {
+                        position: absolute;
+                        inset: 0;
+                        width: 100%;
+                        height: 100%
+                    }
+
+                .map-pin {
+                    position: absolute;
+                    left: 56%;
+                    top: 47%;
+                    color: #c1764a
+                }
+
+                .contact-form {
+                    background: #f5f8f7;
+                    padding: 31px;
+                    border-radius: 14px
+                }
+
+                .contact-actions-panel {
+                    padding: 30px 31px
+                }
+
+                    .contact-actions-panel > h3 {
+                        margin-top: 7px
+                    }
+
+                    .contact-actions-panel > p {
+                        font-size: .78rem;
+                        max-width: 540px
+                    }
+
+                .contact-action {
+                    display: grid;
+                    grid-template-columns: 42px 1fr auto;
+                    align-items: center;
+                    gap: 14px;
+                    padding: 17px 0;
+                    border-top: 1px solid var(--line)
+                }
+
+                .contact-action-icon {
+                    width: 42px;
+                    height: 42px;
+                    border-radius: 9px;
+                    background: #eaf4f2;
+                    color: var(--teal);
+                    display: grid;
+                    place-items: center
+                }
+
+                    .contact-action-icon svg {
+                        width: 19px
+                    }
+
+                .contact-action-copy span {
+                    display: block;
+                    color: var(--muted);
+                    font-size: .66rem;
+                    text-transform: uppercase;
+                    letter-spacing: .1em
+                }
+
+                .contact-action-copy strong {
+                    display: block;
+                    font: 700 .9rem Manrope;
+                    margin: 2px 0
+                }
+
+                .contact-action-copy small {
+                    display: block;
+                    color: var(--muted);
+                    font-size: .7rem
+                }
+
+                .contact-action .btn {
+                    min-height: 38px;
+                    font-size: .72rem;
+                    padding: 0 13px
+                }
+
+                .contact-emergency {
+                    margin-top: 9px;
+                    padding: 17px 0 0;
+                    border-top: 1px solid var(--line);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 15px
+                }
+
+                    .contact-emergency span {
+                        display: block;
+                        color: var(--muted);
+                        font-size: .66rem;
+                        text-transform: uppercase;
+                        letter-spacing: .1em
+                    }
+
+                    .contact-emergency strong {
+                        display: block;
+                        font: 700 1rem Manrope;
+                        margin-top: 3px
+                    }
+
+                    .contact-emergency .btn {
+                        font-size: .72rem;
+                        min-height: 39px
+                    }
+
+                .contact-demo-note {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 8px !important;
+                    margin: 20px 0 0 !important;
+                    padding-top: 16px;
+                    border-top: 1px solid var(--line);
+                    font-size: .66rem !important
+                }
+
+                    .contact-demo-note svg {
+                        width: 14px;
+                        flex: none;
+                        color: var(--teal)
+                    }
+
+                .contact-form h3 {
+                    margin-bottom: 7px
+                }
+
+                .contact-form > p {
+                    font-size: .78rem
+                }
+
+                .footer {
+                    background: #0b2334;
+                    color: #dce7e9;
+                    padding: 70px 0 20px
+                }
+
+                .footer-grid {
+                    display: grid;
+                    grid-template-columns: 1.25fr repeat(4,1fr);
+                    gap: 38px;
+                    padding-bottom: 50px
+                }
+
+                .footer .brand-name {
+                    color: white
+                }
+
+                .footer .brand-sub {
+                    color: #8ea6ad
+                }
+
+                .footer h4 {
+                    font-size: .74rem;
+                    letter-spacing: .1em;
+                    text-transform: uppercase;
+                    color: #8eb9b7;
+                    margin-bottom: 18px
+                }
+
+                .footer a, .footer span {
+                    display: block;
+                    font-size: .77rem;
+                    color: #b3c5ca;
+                    margin: 9px 0
+                }
+
+                    .footer a:hover {
+                        color: white
+                    }
+
+                .footer-note {
+                    font-size: .72rem;
+                    color: #839ca4;
+                    max-width: 250px;
+                    margin-top: 17px
+                }
+
+                .footer-bottom {
+                    border-top: 1px solid #284452;
+                    padding-top: 17px;
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 20px;
+                    font-size: .68rem;
+                    color: #8299a1
+                }
+
+                .whatsapp-float {
+                    position: fixed;
+                    left: 20px;
+                    bottom: 20px;
+                    z-index: 45;
+                    display: flex;
+                    align-items: center;
+                    gap: 9px;
+                    height: 48px;
+                    padding: 0 15px 0 11px;
+                    background: #188c78;
+                    color: white;
+                    border-radius: 999px;
+                    box-shadow: 0 10px 30px rgba(16,40,58,.20);
+                    font-size: .76rem;
+                    font-weight: 700;
+                    transition: .25s ease
+                }
+
+                    .whatsapp-float:hover {
+                        background: #137462;
+                        transform: translateY(-2px);
+                        box-shadow: 0 13px 34px rgba(16,40,58,.25)
+                    }
+
+                    .whatsapp-float svg {
+                        width: 27px;
+                        height: 27px;
+                        fill: currentColor
+                    }
+
+                .social-links {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px
+                }
+
+                    .social-links a {
+                        margin: 0 !important;
+                        font-weight: 600;
+                        color: #dce7e9
+                    }
+
+                        .social-links a:hover {
+                            color: white
+                        }
+
+                .social-note {
+                    margin-top: 13px !important;
+                    font-size: .64rem !important;
+                    color: #708992 !important;
+                    line-height: 1.45
+                }
+
+                .top-btn {
+                    position: fixed;
+                    right: 20px;
+                    bottom: 20px;
+                    width: 42px;
+                    height: 42px;
+                    border: 1px solid var(--line);
+                    background: white;
+                    border-radius: 9px;
+                    color: var(--navy);
+                    display: none;
+                    place-items: center;
+                    z-index: 30;
+                    box-shadow: 0 8px 25px rgba(16,40,58,.12)
+                }
+
+                    .top-btn.show {
+                        display: grid
+                    }
+
+                /* =========================================================
+           Modals / Drawers
+        ========================================================= */
+                .modal-wrap {
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(5,22,32,.62);
+                    z-index: 100;
+                    display: none;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px
+                }
+
+                    .modal-wrap.open {
+                        display: flex
+                    }
+
+                .modal {
+                    width: min(720px,100%);
+                    max-height: min(760px,92vh);
+                    overflow: auto;
+                    background: white;
+                    border-radius: 16px;
+                    box-shadow: 0 30px 90px rgba(0,0,0,.28);
+                    position: relative
+                }
+
+                    .modal.large {
+                        width: min(920px,100%)
+                    }
+
+                .modal-head {
+                    padding: 27px 31px 20px;
+                    border-bottom: 1px solid var(--line);
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 20px
+                }
+
+                    .modal-head h3 {
+                        margin: 0;
+                        font-size: 1.4rem
+                    }
+
+                .close-modal {
+                    width: 38px;
+                    height: 38px;
+                    border: 1px solid var(--line);
+                    background: white;
+                    border-radius: 8px;
+                    display: grid;
+                    place-items: center;
+                    flex: none
+                }
+
+                .modal-body {
+                    padding: 30px
+                }
+
+                .doctor-profile {
+                    display: grid;
+                    grid-template-columns: 180px 1fr;
+                    gap: 27px
+                }
+
+                .profile-photo {
+                    width: 180px;
+                    height: 220px;
+                    object-fit: cover;
+                    border-radius: 10px
+                }
+
+                .profile-meta {
+                    font-size: .8rem;
+                    color: var(--muted)
+                }
+
+                .profile-list {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
+                    margin: 20px 0
+                }
+
+                    .profile-list div {
+                        background: #f3f7f6;
+                        padding: 11px 13px;
+                        border-radius: 7px;
+                        font-size: .74rem
+                    }
+
+                    .profile-list b {
+                        display: block;
+                        color: var(--navy);
+                        margin-bottom: 2px
+                    }
+
+                .article-body img {
+                    width: 100%;
+                    height: 250px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                    margin-bottom: 22px
+                }
+
+                .article-body p {
+                    font-size: .88rem
+                }
+
+                .department-detail {
+                    display: grid;
+                    grid-template-columns: 1.1fr .9fr;
+                    gap: 30px
+                }
+
+                .detail-aside {
+                    background: var(--mist);
+                    padding: 22px;
+                    border-radius: 10px
+                }
+
+                    .detail-aside strong {
+                        font: 700 .75rem Manrope;
+                        display: block;
+                        margin-bottom: 8px
+                    }
+
+                    .detail-aside ul {
+                        padding-left: 18px;
+                        color: var(--muted);
+                        font-size: .77rem
+                    }
+
+                    .detail-aside li {
+                        margin: 6px 0
+                    }
+
+                /* Toast */
+                .toast {
+                    position: fixed;
+                    left: 50%;
+                    bottom: 25px;
+                    transform: translate(-50%,20px);
+                    background: var(--navy);
+                    color: white;
+                    padding: 13px 18px;
+                    border-radius: 9px;
+                    font-size: .78rem;
+                    opacity: 0;
+                    pointer-events: none;
+                    z-index: 150;
+                    transition: .3s
+                }
+
+                    .toast.show {
+                        opacity: 1;
+                        transform: translate(-50%,0)
+                    }
+
+                /* =========================================================
+           Responsive
+        ========================================================= */
+                @media(max-width:1120px) {
+                    .nav-links {
+                        gap: 14px
+                    }
+
+                    .header-actions .emergency-mini {
+                        display: none
+                    }
+
+                    .hero-grid {
+                        gap: 35px
+                    }
+
+                    .hero-visual, .hero-photo {
+                        min-height: 540px;
+                        height: 540px
+                    }
+
+                    .quick-inner {
+                        grid-template-columns: 1fr repeat(5,.95fr)
+                    }
+
+                    .quick-intro {
+                        display: none
+                    }
+
+                    .feature-depts {
+                        grid-template-columns: 1fr 1fr
+                    }
+
+                    .dept-feature:first-child {
+                        grid-row: span 2
+                    }
+
+                    .directory {
+                        grid-template-columns: repeat(3,1fr)
+                    }
+
+                    .dept-link:nth-last-child(-n+4) {
+                        border-bottom: 1px solid #edf1f2
+                    }
+
+                    .dept-link:nth-last-child(-n+3) {
+                        border-bottom: 0
+                    }
+
+                    .doctor-grid {
+                        grid-template-columns: 1fr 1fr
+                    }
+                }
+
+                @media(max-width:900px) {
+                    .section {
+                        padding: 85px 0
+                    }
+
+                    .nav {
+                        height: 72px
+                    }
+
+                    .nav-links, .header-actions .btn {
+                        display: none
+                    }
+
+                    .menu-btn {
+                        display: grid;
+                        place-items: center;
+                        margin-left: auto
+                    }
+
+                    .mobile-nav {
+                        display: block;
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: 72px;
+                        background: white;
+                        border-bottom: 1px solid var(--line);
+                        box-shadow: 0 15px 30px rgba(16,40,58,.1);
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: max-height .35s
+                    }
+
+                        .mobile-nav.open {
+                            max-height: 500px
+                        }
+
+                        .mobile-nav a {
+                            display: block;
+                            padding: 15px 20px;
+                            border-top: 1px solid #edf1f2;
+                            font-weight: 600;
+                            font-size: .86rem
+                        }
+
+                    .hero {
+                        padding: 35px 0 45px
+                    }
+
+                    .hero-grid {
+                        grid-template-columns: 1fr
+                    }
+
+                    .hero-copy {
+                        padding-bottom: 0
+                    }
+
+                    .hero h1 {
+                        max-width: 750px
+                    }
+
+                    .hero-visual {
+                        min-height: 480px;
+                        height: 480px;
+                        max-width: 720px
+                    }
+
+                    .hero-photo {
+                        height: 480px;
+                        min-height: 480px;
+                        border-radius: 60px 14px 14px 14px
+                    }
+
+                    .hero-caption {
+                        left: 20px;
+                        bottom: 22px
+                    }
+
+                    .quick-inner {
+                        grid-template-columns: repeat(3,1fr)
+                    }
+
+                    .quick-item {
+                        min-height: 72px;
+                        border-bottom: 1px solid rgba(255,255,255,.1)
+                    }
+
+                    .about-grid, .appointment-grid, .facility-layout, .why-grid, .quote-layout, .package-layout, .contact-grid {
+                        grid-template-columns: 1fr;
+                        gap: 45px
+                    }
+
+                    .about-art {
+                        max-width: 650px
+                    }
+
+                    .about-copy {
+                        max-width: 720px
+                    }
+
+                    .finder {
+                        grid-template-columns: 1fr 1fr
+                    }
+
+                    .article-grid {
+                        grid-template-columns: 1fr 1fr
+                    }
+
+                    .article:first-child {
+                        grid-column: span 2;
+                        grid-row: auto
+                    }
+
+                    .footer-grid {
+                        grid-template-columns: 1.4fr 1fr 1fr;
+                        gap: 35px
+                    }
+
+                        .footer-grid > div:last-child {
+                            grid-column: span 2
+                        }
+
+                    .timeline {
+                        grid-template-columns: 1fr;
+                        gap: 27px;
+                        margin-top: 35px
+                    }
+
+                        .timeline:before {
+                            top: 0;
+                            bottom: 0;
+                            left: 15px;
+                            width: 1px;
+                            height: auto
+                        }
+
+                    .timeline-item {
+                        text-align: left;
+                        padding-left: 60px
+                    }
+
+                    .timeline-dot {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        margin: 0
+                    }
+                }
+
+                @media(max-width:600px) {
+                    .container {
+                        width: min(calc(100% - 28px),var(--max))
+                    }
+
+                    .section {
+                        padding: 68px 0
+                    }
+
+                    h1 {
+                        font-size: clamp(2.65rem,13vw,4rem)
+                    }
+
+                    h2 {
+                        font-size: 2.25rem
+                    }
+
+                    .brand-sub {
+                        display: none
+                    }
+
+                    .brand-name {
+                        font-size: .92rem
+                    }
+
+                    .hero h1 {
+                        letter-spacing: -.045em
+                    }
+
+                    .hero-copy > p {
+                        font-size: .96rem
+                    }
+
+                    .hero-actions {
+                        display: grid;
+                        grid-template-columns: 1fr
+                    }
+
+                        .hero-actions .btn {
+                            width: 100%
+                        }
+
+                    .hero-visual {
+                        height: 390px;
+                        min-height: 390px
+                    }
+
+                    .hero-photo {
+                        height: 390px;
+                        min-height: 390px;
+                        border-radius: 45px 12px 12px 12px
+                    }
+
+                    .hero-caption {
+                        left: 12px;
+                        right: 12px;
+                        bottom: 12px;
+                        width: auto;
+                        padding: 14px 16px
+                    }
+
+                        .hero-caption span {
+                            font-size: .7rem
+                        }
+
+                    .quick-inner {
+                        grid-template-columns: 1fr 1fr
+                    }
+
+                    .quick-item {
+                        min-height: 63px;
+                        padding: 0 12px;
+                        font-size: .74rem
+                    }
+
+                        .quick-item:nth-child(5) {
+                            border-bottom: 0
+                        }
+
+                    .about-art {
+                        padding: 0 0 28px 20px
+                    }
+
+                    .about-main-img {
+                        width: 88%;
+                        height: 370px
+                    }
+
+                    .about-small-img {
+                        width: 43%;
+                        height: 170px;
+                        border-width: 8px
+                    }
+
+                    .year-badge {
+                        top: 40px;
+                        left: 0;
+                        padding: 13px 15px
+                    }
+
+                        .year-badge b {
+                            font-size: 1.25rem
+                        }
+
+                    .check-list {
+                        grid-template-columns: 1fr
+                    }
+
+                    .section-head {
+                        display: block;
+                        margin-bottom: 30px
+                    }
+
+                        .section-head > div:last-child {
+                            margin-top: 15px
+                        }
+
+                    .feature-depts {
+                        grid-template-columns: 1fr
+                    }
+
+                    .dept-feature:first-child {
+                        grid-row: auto
+                    }
+
+                    .dept-feature {
+                        min-height: 300px
+                    }
+
+                    .directory {
+                        grid-template-columns: 1fr
+                    }
+
+                    .dept-link:nth-last-child(-n+3) {
+                        border-bottom: 1px solid #edf1f2
+                    }
+
+                    .dept-link:last-child {
+                        border-bottom: 0
+                    }
+
+                    .finder {
+                        grid-template-columns: 1fr;
+                        padding: 13px
+                    }
+
+                    .doctor-grid {
+                        grid-template-columns: 1fr
+                    }
+
+                    .doctor-card {
+                        grid-template-columns: 84px 1fr
+                    }
+
+                    .doctor-photo {
+                        width: 84px;
+                        height: 108px
+                    }
+
+                    .booking-panel {
+                        padding: 22px
+                    }
+
+                    .form-grid {
+                        grid-template-columns: 1fr
+                    }
+
+                        .form-grid .full {
+                            grid-column: auto
+                        }
+
+                    .slot-grid {
+                        grid-template-columns: 1fr 1fr
+                    }
+
+                    .contact-booking-card {
+                        grid-template-columns: 38px 1fr
+                    }
+
+                        .contact-booking-card .btn {
+                            grid-column: 2;
+                            justify-self: start
+                        }
+
+                    .booking-actions {
+                        display: grid;
+                        grid-template-columns: 1fr
+                    }
+
+                        .booking-actions .btn {
+                            width: 100%
+                        }
+
+                    .facility-layout {
+                        gap: 15px
+                    }
+
+                    .facility-main {
+                        min-height: 390px
+                    }
+
+                    .facility-copy {
+                        left: 22px;
+                        bottom: 22px
+                    }
+
+                    .facility-list {
+                        grid-template-columns: 1fr 1fr
+                    }
+
+                    .facility-item {
+                        min-height: 118px;
+                        padding: 19px 15px
+                    }
+
+                    .editorial-row {
+                        grid-template-columns: 38px 1fr 20px;
+                        gap: 10px
+                    }
+
+                    .quote-list {
+                        grid-template-columns: 1fr
+                    }
+
+                    .quote:first-child {
+                        grid-column: auto
+                    }
+
+                    .article-grid {
+                        grid-template-columns: 1fr
+                    }
+
+                    .article:first-child {
+                        grid-column: auto
+                    }
+
+                        .article:first-child .article-img {
+                            height: 220px
+                        }
+
+                    .package-list {
+                        grid-template-columns: 1fr
+                    }
+
+                    .package {
+                        min-height: 235px
+                    }
+
+                    .emergency-inner {
+                        display: block
+                    }
+
+                    .emergency-actions {
+                        margin-top: 25px
+                    }
+
+                    .contact-form {
+                        padding: 22px
+                    }
+
+                    .contact-actions-panel {
+                        padding: 22px
+                    }
+
+                    .contact-action {
+                        grid-template-columns: 38px 1fr
+                    }
+
+                        .contact-action .btn {
+                            grid-column: 2;
+                            justify-self: start
+                        }
+
+                    .contact-emergency {
+                        align-items: flex-start;
+                        flex-direction: column
+                    }
+
+                        .contact-emergency .btn {
+                            width: 100%
+                        }
+
+                    .footer-grid {
+                        grid-template-columns: 1fr 1fr;
+                        gap: 28px
+                    }
+
+                    .whatsapp-float {
+                        left: 12px;
+                        bottom: 12px;
+                        height: 44px;
+                        padding-right: 13px
+                    }
+
+                        .whatsapp-float span {
+                            display: none
+                        }
+
+                        .whatsapp-float svg {
+                            width: 25px;
+                            height: 25px
+                        }
+
+                    .top-btn {
+                        right: 12px;
+                        bottom: 12px;
+                        width: 42px;
+                        height: 42px
+                    }
+
+                    .footer-grid > div:first-child {
+                        grid-column: span 2
+                    }
+
+                    .footer-grid > div:last-child {
+                        grid-column: auto
+                    }
+
+                    .footer-bottom {
+                        display: block
+                    }
+
+                        .footer-bottom span {
+                            display: block;
+                            margin-top: 7px
+                        }
+
+                    .modal-wrap {
+                        padding: 10px
+                    }
+
+                    .modal-body {
+                        padding: 22px
+                    }
+
+                    .modal-head {
+                        padding: 20px
+                    }
+
+                    .doctor-profile, .department-detail {
+                        grid-template-columns: 1fr
+                    }
+
+                    .profile-photo {
+                        width: 120px;
+                        height: 150px
+                    }
+
+                    .profile-list {
+                        grid-template-columns: 1fr
+                    }
+                }
+
+                @media(max-width:380px) {
+                    .container {
+                        width: calc(100% - 22px)
+                    }
+
+                    .brand-mark {
+                        width: 34px;
+                        height: 34px
+                    }
+
+                    .brand-name {
+                        font-size: .82rem
+                    }
+
+                    .hero {
+                        padding-top: 25px
+                    }
+
+                    .hero-visual, .hero-photo {
+                        height: 350px;
+                        min-height: 350px
+                    }
+
+                    .hero-caption {
+                        padding: 12px
+                    }
+
+                    .facility-list {
+                        grid-template-columns: 1fr
+                    }
+
+                    .footer-grid {
+                        grid-template-columns: 1fr
+                    }
+
+                        .footer-grid > div:first-child {
+                            grid-column: auto
+                        }
+                }
+
+                @media(prefers-reduced-motion:reduce) {
+                    *, *:before, *:after {
+                        scroll-behavior: auto !important;
+                        animation-duration: .01ms !important;
+                        transition-duration: .01ms !important
+                    }
+
+                    .reveal {
+                        opacity: 1;
+                        transform: none
+                    }
+                }
+    </style>
+</head>
+<body>
+    <header class="site-header" id="top">
+        <div class="container nav">
+            <a class="brand" href="#home" aria-label="VistaraCare Medical Centre home">
+                <span class="brand-mark"><i data-lucide="cross"></i></span>
+                <span><span class="brand-name">VistaraCare</span><span class="brand-sub">Medical Centre</span></span>
+            </a>
+            <nav class="nav-links" aria-label="Primary navigation">
+                <a href="#home">Home</a><a href="#about">About</a><a href="#departments">Departments</a>
+                <a href="#doctors">Doctors</a><a href="#patient-care">Patient Care</a><a href="#facilities">Facilities</a>
+                <a href="#library">Health Library</a><a href="#contact">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <div class="emergency-mini"><strong>24/7 Emergency</strong>+91 80 4567 8900</div>
+                <button class="btn btn-primary" data-open-appointment>Book Appointment</button>
+                <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#home">Home</a><a href="#about">About</a><a href="#departments">Departments</a><a href="#doctors">Doctors</a>
+            <a href="#patient-care">Patient Care</a><a href="#facilities">Facilities</a><a href="#library">Health Library</a><a href="#contact">Contact</a>
+            <a href="tel:+918045678900">Emergency: +91 80 4567 8900</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container hero-grid">
+                <div class="hero-copy reveal">
+                    <div class="eyebrow">Compassion · Precision · Care</div>
+                    <h1>Healthcare designed <em>around you.</em></h1>
+                    <p>From preventive care to complex treatment, our specialists combine clinical expertise, advanced technology and personal attention at every step.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" data-open-appointment>Book an Appointment <i data-lucide="arrow-up-right"></i></button>
+                        <a class="btn btn-light" href="#departments">Explore Our Departments</a>
+                    </div>
+                    <div class="hero-note"><span class="pulse"></span> Specialist support available around the clock</div>
+                </div>
+                <div class="hero-visual reveal">
+                    <img class="hero-photo" src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1200&q=85" alt="Fictional hospital clinical team in a bright modern care environment" onerror="this.src='https://placehold.co/1000x900/e0ebeb/17394d?text=VistaraCare+Medical+Centre'">
+                    <div class="hero-caption"><small>Emergency & Critical Care</small><strong>24/7 Emergency Care</strong><span>Specialist support available around the clock.</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick" aria-label="Quick access">
+            <div class="container quick-inner">
+                <div class="quick-intro"><strong>Start here</strong></div>
+                <a class="quick-item" href="#appointment"><i data-lucide="calendar-plus"></i>Book Appointment</a>
+                <a class="quick-item" href="#doctors" id="findDoctorQuick"><i data-lucide="stethoscope"></i>Find a Doctor</a>
+                <a class="quick-item" href="#departments"><i data-lucide="layers-3"></i>Departments</a>
+                <a class="quick-item" href="#emergency"><i data-lucide="phone-call"></i>Emergency</a>
+                <a class="quick-item" href="#patient-care"><i data-lucide="badge-check"></i>Patient Portal</a>
+            </div>
+        </section>
+
+        <section class="section about" id="about">
+            <div class="container about-grid">
+                <div class="about-art reveal">
+                    <img class="about-main-img" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=900&q=85" alt="Fictional VistaraCare hospital interior" onerror="this.src='https://placehold.co/800x900/dce9e8/17394d?text=Hospital'">
+                    <img class="about-small-img" src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=650&q=85" alt="Fictional clinician speaking with a patient" onerror="this.src='https://placehold.co/650x450/e5eeee/17394d?text=Patient+Care'">
+                    <div class="year-badge"><b>18</b><span>Years of Care</span></div>
+                </div>
+                <div class="about-copy reveal">
+                    <div class="eyebrow">About VistaraCare</div>
+                    <h2>Care that sees the whole person.</h2>
+                    <p>VistaraCare Medical Centre is a fictional multi-specialty hospital created for this demonstration. Founded in 2008, the centre is imagined around a simple idea: good medicine should feel coordinated, clear and personal.</p>
+                    <p>Our model brings specialists, diagnostics and supportive services together so patients and families can spend less time navigating care and more time focusing on recovery. We are built around rigorous clinical quality standards.</p>
+                    <ul class="check-list">
+                        <li><i data-lucide="check"></i>Multidisciplinary specialists</li>
+                        <li><i data-lucide="check"></i>Advanced diagnostic services</li>
+                        <li><i data-lucide="check"></i>Patient-first care</li>
+                        <li><i data-lucide="check"></i>24/7 emergency support</li>
+                    </ul>
+                    <div class="signature"><span class="signature-mark">VC</span><span><strong>Designed for continuity.</strong><small>A fictional hospital experience for demonstration purposes.</small></span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section departments" id="departments">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div><div class="eyebrow">Clinical departments</div><h2>Expertise, without the runaround.</h2></div>
+                    <div><p>From routine consultations to complex care, our fictional departments are organised around how patients actually move through a hospital.</p></div>
+                </div>
+                <div class="feature-depts reveal">
+                    <button class="dept-feature" data-dept="Cardiology">
+                        <img src="https://images.unsplash.com/photo-1628348070889-cb656235b4eb?auto=format&fit=crop&w=1000&q=80" alt="Cardiology consultation" onerror="this.src='https://placehold.co/900x600/193d51/ffffff?text=Cardiology'">
+                        <span class="dept-num">01 / HEART & CIRCULATION</span><h3>Cardiology</h3><p>Heart rhythm, preventive cardiology, imaging and coordinated cardiac care.</p>
+                    </button>
+                    <button class="dept-feature" data-dept="Neurology">
+                        <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=900&q=80" alt="Neurology clinical environment" onerror="this.src='https://placehold.co/700x500/193d51/ffffff?text=Neurology'">
+                        <span class="dept-num">02 / BRAIN & NERVES</span><h3>Neurology</h3><p>Assessment and long-term support for neurological conditions.</p>
+                    </button>
+                    <button class="dept-feature" data-dept="Orthopaedics">
+                        <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=900&q=80" alt="Orthopaedic hospital setting" onerror="this.src='https://placehold.co/700x500/193d51/ffffff?text=Orthopaedics'">
+                        <span class="dept-num">03 / BONES & MOVEMENT</span><h3>Orthopaedics</h3><p>Mobility-focused care, sports injuries and joint health.</p>
+                    </button>
+                </div>
+                <div class="directory reveal" aria-label="Department directory">
+                    <button class="dept-link" data-dept="Oncology">Oncology <i data-lucide="arrow-up-right"></i></button>
+                    <button class="dept-link" data-dept="Gastroenterology">Gastroenterology <i data-lucide="arrow-up-right"></i></button>
+                    <button class="dept-link" data-dept="Paediatrics">Paediatrics <i data-lucide="arrow-up-right"></i></button>
+                    <button class="dept-link" data-dept="Obstetrics & Gynaecology">Obstetrics & Gynaecology <i data-lucide="arrow-up-right"></i></button>
+                    <button class="dept-link" data-dept="Pulmonology">Pulmonology <i data-lucide="arrow-up-right"></i></button>
+                    <button class="dept-link" data-dept="Nephrology">Nephrology <i data-lucide="arrow-up-right"></i></button>
+                    <button class="dept-link" data-dept="Dermatology">Dermatology <i data-lucide="arrow-up-right"></i></button>
+                    <button class="dept-link" data-dept="General Surgery">General Surgery <i data-lucide="arrow-up-right"></i></button>
+                    <button class="dept-link" data-dept="Emergency Medicine">Emergency Medicine <i data-lucide="arrow-up-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section doctors" id="doctors">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div><div class="eyebrow">Doctor finder</div><h2>Find the right specialist.</h2></div>
+                    <div><p>Search our fictional consultant directory by name, specialty, clinic or availability.</p></div>
+                </div>
+                <div class="finder reveal">
+                    <div class="field"><input id="doctorSearch" type="search" placeholder="Search by doctor name" aria-label="Search by doctor name"></div>
+                    <div class="field"><select id="specialtyFilter" aria-label="Filter by specialty"><option value="">All specialties</option></select></div>
+                    <div class="field"><select id="clinicFilter" aria-label="Filter by clinic"><option value="">All clinics</option><option>Central Campus</option><option>North Wing</option><option>South Wing</option></select></div>
+                    <div class="field"><select id="availabilityFilter" aria-label="Filter by availability"><option value="">Any availability</option><option>Today</option><option>Tomorrow</option><option>This week</option></select></div>
+                </div>
+                <div class="doctor-grid" id="doctorGrid"></div>
+            </div>
+        </section>
+
+        <section class="section appointment" id="appointment">
+            <div class="container appointment-grid">
+                <div class="reveal">
+                    <div class="eyebrow">Appointment desk</div>
+                    <h2>A calmer way to plan your visit.</h2>
+                    <p>
+                        To arrange an appointment, contact our fictional appointment desk directly.
+                        Choose the department or specialist you are interested in, then reach us by phone or email.
+                    </p>
+
+                    <div class="steps" aria-label="Appointment process">
+                        <div class="step active">
+                            <span class="step-no">01</span>
+                            <div><b>Choose your specialist</b><small>Browse our doctors and departments.</small></div>
+                        </div>
+                        <div class="step">
+                            <span class="step-no">02</span>
+                            <div><b>Contact the appointment desk</b><small>Call or email with your preferred details.</small></div>
+                        </div>
+                        <div class="step">
+                            <span class="step-no">03</span>
+                            <div><b>Confirm your visit</b><small>The appointment desk will coordinate availability.</small></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="booking-panel reveal">
+                    <div class="booking-contact">
+                        <div class="eyebrow">Book by contacting us</div>
+                        <h3>Speak with the appointment desk.</h3>
+                        <p class="kicker">
+                            This demonstration website does not collect or transmit appointment information.
+                            Use the existing phone or email contact options below.
+                        </p>
+
+                        <div class="contact-booking-card">
+                            <div class="contact-booking-icon"><i data-lucide="phone-call"></i></div>
+                            <div>
+                                <span>Appointment line</span>
+                                <strong>+91 80 4567 8911</strong>
+                                <small>Mon–Sat · 8:00 AM–8:00 PM · Tap to call</small>
+                            </div>
+                            <a class="btn btn-primary" href="tel:+918045678911" aria-label="Call appointment desk">
+                                Call
+                            </a>
+                        </div>
+
+                        <div class="contact-booking-card">
+                            <div class="contact-booking-icon"><i data-lucide="mail"></i></div>
+                            <div>
+                                <span>Appointment email</span>
+                                <strong>care@vistaracare.example</strong>
+                                <small>Opens your default email app</small>
+                            </div>
+                            <a class="btn btn-light" href="mailto:care@vistaracare.example?subject=Appointment%20Enquiry%20-%20VistaraCare" aria-label="Email appointment desk">
+                                Email
+                            </a>
+                        </div>
+
+                        <div class="booking-note">
+                            <i data-lucide="info"></i>
+                            <span>
+                                Please do not include sensitive medical information in an email. For urgent medical
+                                attention, call the emergency number instead.
+                            </span>
+                        </div>
+
+                        <div class="booking-actions">
+                            <a class="btn btn-primary" href="mailto:care@vistaracare.example?subject=Appointment%20Enquiry%20-%20VistaraCare&body=Hello%20VistaraCare%20Appointment%20Desk%2C%0A%0AI%20would%20like%20to%20enquire%20about%20an%20appointment.%0A%0AThank%20you.">
+                                Email Appointment Desk <i data-lucide="arrow-up-right"></i>
+                            </a>
+                            <a class="btn btn-light" href="tel:+918045678911">
+                                Call +91 80 4567 8911
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section facilities" id="facilities">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div><div class="eyebrow">Facilities & services</div><h2>The details matter when care gets serious.</h2></div>
+                    <div><p>Purpose-built clinical spaces and practical support services, presented as fictional facilities for this demo.</p></div>
+                </div>
+                <div class="facility-layout reveal">
+                    <div class="facility-main">
+                        <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1100&q=85" alt="Fictional modern hospital corridor" onerror="this.src='https://placehold.co/1000x700/193d51/ffffff?text=Advanced+Care'">
+                        <div class="facility-copy"><div class="eyebrow">Featured facility</div><h3>Advanced critical care</h3><p>A calm, closely monitored environment imagined for patients who need continuous clinical support.</p></div>
+                    </div>
+                    <div class="facility-list">
+                        <div class="facility-item"><i data-lucide="siren"></i><strong>24/7 Emergency</strong><span>Always-on urgent care access.</span></div>
+                        <div class="facility-item"><i data-lucide="activity"></i><strong>Advanced ICU</strong><span>Continuous monitoring and support.</span></div>
+                        <div class="facility-item"><i data-lucide="scan-line"></i><strong>Diagnostic Imaging</strong><span>Imaging-led clinical decision support.</span></div>
+                        <div class="facility-item"><i data-lucide="shield-check"></i><strong>Modular Operation Theatres</strong><span>Purpose-designed surgical environments.</span></div>
+                        <div class="facility-item"><i data-lucide="pill"></i><strong>Pharmacy</strong><span>Convenient medication support.</span></div>
+                        <div class="facility-item"><i data-lucide="flask-conical"></i><strong>Laboratory</strong><span>Routine and specialist diagnostics.</span></div>
+                        <div class="facility-item"><i data-lucide="droplets"></i><strong>Blood Bank</strong><span>Fictional transfusion support service.</span></div>
+                        <div class="facility-item"><i data-lucide="person-standing"></i><strong>Rehabilitation</strong><span>Recovery and mobility support.</span></div>
+                        <div class="facility-item"><i data-lucide="ambulance"></i><strong>Ambulance Services</strong><span>Rapid transfer support.</span></div>
+                        <div class="facility-item"><i data-lucide="globe-2"></i><strong>International Patient Desk</strong><span>Coordination for visiting patients.</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section why" id="patient-care">
+            <div class="container why-grid">
+                <div class="reveal"><div class="eyebrow">Why patients choose us</div><h2>Good care is also good coordination.</h2><p>Our fictional model focuses on the moments between clinical decisions: communication, handoffs and what happens next.</p></div>
+                <div class="editorial-list reveal">
+                    <div class="editorial-row"><span class="num">01</span><div><h3>One coordinated care team</h3><p>Relevant specialists share a common view of the patient journey instead of making families repeat the same story.</p></div><i data-lucide="arrow-up-right"></i></div>
+                    <div class="editorial-row"><span class="num">02</span><div><h3>Technology that supports better decisions</h3><p>Diagnostics and digital records are imagined as tools that help clinicians spend more attention where it matters.</p></div><i data-lucide="arrow-up-right"></i></div>
+                    <div class="editorial-row"><span class="num">03</span><div><h3>Clear communication at every step</h3><p>Plain-language explanations, practical next steps and a visible plan for follow-up.</p></div><i data-lucide="arrow-up-right"></i></div>
+                    <div class="editorial-row"><span class="num">04</span><div><h3>Care beyond the consultation</h3><p>Recovery guidance and continuity are treated as part of care, not an afterthought.</p></div><i data-lucide="arrow-up-right"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section journey">
+            <div class="container">
+                <div class="section-head reveal"><div><div class="eyebrow">Patient journey</div><h2>Know what happens next.</h2></div><div><p>Select a stage to highlight the kind of support you can expect.</p></div></div>
+                <div class="timeline reveal" id="timeline">
+                    <button class="timeline-item active"><span class="timeline-dot">01</span><h3>Find a Specialist</h3><p>Start with the right clinical team.</p></button>
+                    <button class="timeline-item"><span class="timeline-dot">02</span><h3>Schedule Your Visit</h3><p>Choose a suitable appointment.</p></button>
+                    <button class="timeline-item"><span class="timeline-dot">03</span><h3>Consultation & Diagnosis</h3><p>Discuss symptoms and findings.</p></button>
+                    <button class="timeline-item"><span class="timeline-dot">04</span><h3>Treatment Plan</h3><p>Agree the next practical steps.</p></button>
+                    <button class="timeline-item"><span class="timeline-dot">05</span><h3>Follow-up & Recovery</h3><p>Stay connected after the visit.</p></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section testimonials">
+            <div class="container quote-layout">
+                <div class="quote-lead reveal"><div class="eyebrow">Patient voices</div><h2>Small details can change a difficult day.</h2><p>These are fictional testimonials written for demonstration only.</p></div>
+                <div class="quote-list reveal">
+                    <article class="quote"><p>“From the first consultation to discharge, every member of the team explained what was happening clearly. That made a difficult experience much easier for our family.”</p><div class="quote-person"><span><strong>Meera K.</strong> · 40s · Cardiology</span><span class="rating">4.8 / 5</span></div></article>
+                    <article class="quote"><p>“The appointment process felt organised and the follow-up plan was easy to understand.”</p><div class="quote-person"><span>Ravi S. · 50s · Orthopaedics</span><span class="rating">4.7 / 5</span></div></article>
+                    <article class="quote"><p>“What stood out was how clearly the next step was explained to us.”</p><div class="quote-person"><span>Nisha P. · 30s · Neurology</span><span class="rating">4.9 / 5</span></div></article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section library" id="library">
+            <div class="container">
+                <div class="section-head reveal"><div><div class="eyebrow">Health library</div><h2>Useful reading, without the jargon.</h2></div><div><p>Fictional educational articles designed to demonstrate an editorial healthcare experience.</p></div></div>
+                <div class="article-grid reveal" id="articleGrid"></div>
+            </div>
+        </section>
+
+        <section class="section packages">
+            <div class="container package-layout">
+                <div class="package-intro reveal"><div class="eyebrow">Preventive care</div><h2>Health checks that fit real life.</h2><p>Demo packages with fictional pricing and fictional inclusions. No purchase is possible from this page.</p><span class="demo-note">DEMO PRICES · FICTIONAL CONTENT</span></div>
+                <div class="package-list reveal" id="packageList"></div>
+            </div>
+        </section>
+
+        <section class="emergency" id="emergency">
+            <div class="container emergency-inner reveal">
+                <div><div class="eyebrow">Urgent care</div><h2>Need urgent medical attention?</h2><p>VistaraCare Emergency & Critical Care is available 24 hours a day.</p></div>
+                <div class="emergency-actions"><a class="btn btn-primary" href="tel:+918045678900"><i data-lucide="phone"></i>Call Emergency</a><a class="btn btn-light" href="https://www.google.com/maps/search/?api=1&query=18+Meridian+Health+Avenue+Indiranagar+Bengaluru+Karnataka+560038" target="_blank" rel="noopener"><i data-lucide="map-pin"></i>Get Directions</a><a class="btn btn-light" href="tel:+918045678900"><i data-lucide="ambulance"></i>Ambulance</a></div>
+            </div>
+        </section>
+
+        <section class="section contact" id="contact">
+            <div class="container contact-grid">
+                <div class="reveal">
+                    <div class="eyebrow">Contact</div><h2>We're easy to reach.</h2><p>All contact details below are fictional demonstration content.</p>
+                    <div class="contact-details">
+                        <div class="contact-line"><i data-lucide="map-pin"></i><div><strong>Address</strong><span>18 Meridian Health Avenue, Indiranagar, Bengaluru, Karnataka 560038</span></div></div>
+                        <div class="contact-line"><i data-lucide="phone"></i><div><strong>Appointments</strong><span>+91 80 4567 8911</span></div></div>
+                        <div class="contact-line"><i data-lucide="mail"></i><div><strong>Email</strong><span>care@vistaracare.example</span></div></div>
+                        <div class="contact-line"><i data-lucide="clock-3"></i><div><strong>Working hours</strong><span>Mon–Sat, 8:00 AM–8:00 PM · Emergency: 24/7</span></div></div>
+                    </div>
+                    <div class="map" aria-label="Stylized fictional map placeholder">
+                        <svg viewBox="0 0 600 180" preserveAspectRatio="none" aria-hidden="true">
+                            <path d="M-20 90 C80 35 120 135 215 85 S360 20 430 88 S520 140 620 55" fill="none" stroke="#c5d5d1" stroke-width="24" />
+                            <path d="M20 145 L160 25 L270 150 L400 30 L600 120" fill="none" stroke="#d9e4e0" stroke-width="8" />
+                            <path d="M80 0 L130 180 M320 0 L280 180 M510 0 L460 180" stroke="#dce7e4" stroke-width="4" />
+                            <circle cx="338" cy="82" r="28" fill="#d6ebe7" />
+                            <circle cx="338" cy="82" r="7" fill="#c1764a" />
+                        </svg>
+                        <span class="map-pin"><i data-lucide="map-pin"></i></span>
+                    </div>
+                </div>
+                <div class="contact-form contact-actions-panel reveal">
+                    <div class="eyebrow">Get in touch</div>
+                    <h3>Choose the easiest way to reach us.</h3>
+                    <p>For appointments and general enquiries, contact the fictional VistaraCare team directly.</p>
+
+                    <div class="contact-action">
+                        <div class="contact-action-icon"><i data-lucide="calendar-check"></i></div>
+                        <div class="contact-action-copy">
+                            <span>Appointment desk</span>
+                            <strong>+91 80 4567 8911</strong>
+                            <small>Mon–Sat · 8:00 AM–8:00 PM · Tap to call</small>
+                        </div>
+                        <a class="btn btn-primary" href="tel:+918045678911">Call</a>
+                    </div>
+
+                    <div class="contact-action">
+                        <div class="contact-action-icon"><i data-lucide="mail"></i></div>
+                        <div class="contact-action-copy">
+                            <span>Email</span>
+                            <strong>care@vistaracare.example</strong>
+                            <small>Opens your default email app</small>
+                        </div>
+                        <a class="btn btn-light" href="mailto:care@vistaracare.example">Email</a>
+                    </div>
+
+                    <div class="contact-action">
+                        <div class="contact-action-icon"><i data-lucide="map"></i></div>
+                        <div class="contact-action-copy">
+                            <span>Visit us</span>
+                            <strong>18 Meridian Health Avenue</strong>
+                            <small>Indiranagar, Bengaluru, Karnataka 560038</small>
+                        </div>
+                        <a class="btn btn-light" href="https://www.google.com/maps/search/?api=1&query=18+Meridian+Health+Avenue+Indiranagar+Bengaluru+Karnataka+560038" target="_blank" rel="noopener">Maps</a>
+                    </div>
+
+                    <div class="contact-emergency">
+                        <div>
+                            <span>24/7 emergency</span>
+                            <strong>+91 80 4567 8900</strong>
+                        </div>
+                        <a class="btn btn-primary" href="tel:+918045678900"><i data-lucide="phone-call"></i> Emergency</a>
+                    </div>
+
+                    <p class="contact-demo-note">
+                        <i data-lucide="info"></i>
+                        All hospital details on this website are fictional demonstration content.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="padding-top:70px;padding-bottom:70px;background:#f8faf9">
+            <div class="container" style="max-width:900px">
+                <div class="section-head reveal"><div><div class="eyebrow">Common questions</div><h2>Before you visit.</h2></div></div>
+                <div id="faq">
+                    <details><summary>Is VistaraCare a real hospital?</summary><p>No. VistaraCare Medical Centre and all information on this demonstration website are fictional.</p></details>
+                    <details><summary>Can I actually book an appointment?</summary><p>No. The booking workflow is interactive for demonstration purposes only and does not send or store personal information.</p></details>
+                    <details><summary>Are the doctors and testimonials real?</summary><p>No. The doctors, patient stories, statistics, prices and contact details are fictional.</p></details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a class="brand" href="#home"><span class="brand-mark"><i data-lucide="cross"></i></span><span><span class="brand-name">VistaraCare</span><span class="brand-sub">Medical Centre</span></span></a>
+                    <p class="footer-note">Advanced Care. Personal Attention.<br>Fictional hospital website for demonstration.</p>
+                </div>
+                <div><h4>Hospital</h4><a href="#about">About</a><a href="#">Leadership</a><a href="#">Careers</a><a href="#contact">Contact</a></div>
+                <div><h4>Patient Care</h4><a href="#doctors">Find a Doctor</a><a href="#departments">Departments</a><a href="#appointment">Appointments</a><a href="#patient-care">Patient Information</a></div>
+                <div><h4>Resources</h4><a href="#library">Health Library</a><a href="#faq">FAQs</a><a href="#">Insurance</a><a href="#">Visitor Information</a></div>
+                <div class="footer-social">
+                    <h4>Follow us</h4>
+                    <div class="social-links" aria-label="Social media profiles">
+                        <a href="#" aria-label="Instagram profile placeholder" title="Instagram profile placeholder">Instagram</a>
+                        <a href="#" aria-label="Facebook profile placeholder" title="Facebook profile placeholder">Facebook</a>
+                        <a href="#" aria-label="LinkedIn profile placeholder" title="LinkedIn profile placeholder">LinkedIn</a>
+                    </div>
+                    <span class="social-note">Social profile links are placeholders for the fictional hospital.</span>
+                </div>
+                <div><h4>Emergency</h4><a href="tel:+918045678900">+91 80 4567 8900</a><span>Available 24/7</span><span>Bengaluru, Karnataka</span></div>
+            </div>
+            <div class="footer-bottom"><span>© 2026 VistaraCare Medical Centre</span><span>Demo website — all information is fictional.</span></div>
+        </div>
+    </footer>
+
+
+    <a class="whatsapp-float"
+       href="https://wa.me/918045678911?text=Hello%20VistaraCare%20Appointment%20Desk%2C%20I%20would%20like%20to%20make%20an%20appointment%20enquiry."
+       target="_blank"
+       rel="noopener"
+       aria-label="Chat with VistaraCare on WhatsApp"
+       title="WhatsApp Appointment Desk">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M16 3.2A12.7 12.7 0 0 0 5.1 22.5L3.2 29l6.7-1.8A12.8 12.8 0 1 0 16 3.2Zm0 23.1c-2 0-3.9-.6-5.5-1.7l-.4-.3-4 .1 1.1-3.8-.3-.4a10.3 10.3 0 1 1 9.1 6.1Zm5.7-7.7c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.7.1-.2 0-.4 0-.6 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.7.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.3-.2-.6-.3Z" />
+        </svg>
+        <span>WhatsApp</span>
+    </a>
+
+    <button class="top-btn" id="topBtn" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Modal shell -->
+    <div class="modal-wrap" id="modalWrap" role="presentation">
+        <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-head"><h3 id="modalTitle"></h3><button class="close-modal" id="closeModal" aria-label="Close dialog"><i data-lucide="x"></i></button></div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+/* =========================================================
+   Data
+========================================================= */
+const doctors = [
+ {name:"Dr. Ananya Rao",role:"Senior Consultant",specialty:"Cardiology",experience:"14 years",languages:"English, Hindi, Kannada",type:"In-person · Video",availability:"Today",clinic:"Central Campus",image:"https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=500&q=80"},
+ {name:"Dr. Arjun Mehta",role:"Consultant",specialty:"Orthopaedics",experience:"11 years",languages:"English, Hindi, Tamil",type:"In-person",availability:"Tomorrow",clinic:"North Wing",image:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=500&q=80"},
+ {name:"Dr. Neha Iyer",role:"Senior Consultant",specialty:"Neurology",experience:"16 years",languages:"English, Kannada, Malayalam",type:"In-person · Video",availability:"This week",clinic:"Central Campus",image:"https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=500&q=80"},
+ {name:"Dr. Vikram Shah",role:"Consultant",specialty:"Gastroenterology",experience:"10 years",languages:"English, Hindi, Gujarati",type:"In-person",availability:"Today",clinic:"South Wing",image:"https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=500&q=80"},
+ {name:"Dr. Priya Menon",role:"Consultant",specialty:"Paediatrics",experience:"9 years",languages:"English, Malayalam, Kannada",type:"In-person · Video",availability:"Tomorrow",clinic:"North Wing",image:"https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=500&q=80"},
+ {name:"Dr. Rohan Kapoor",role:"Consultant",specialty:"Oncology",experience:"13 years",languages:"English, Hindi, Punjabi",type:"In-person",availability:"This week",clinic:"Central Campus",image:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=500&q=80"}
+];
+const deptData = {
+ Cardiology:["Heart health, rhythm assessment and preventive cardiac care.","ECG & rhythm assessment","Cardiac imaging coordination","Preventive risk review","Dr. Ananya Rao · Senior Consultant","Mon–Sat · 9:00 AM–6:00 PM"],
+ Neurology:["Evaluation and continuing support for neurological conditions.","Neurological assessment","Headache & movement clinics","Neurodiagnostic coordination","Dr. Neha Iyer · Senior Consultant","Mon–Fri · 10:00 AM–5:00 PM"],
+ Orthopaedics:["Mobility-focused consultations, joint health and sports injury care.","Joint & spine assessment","Sports injury review","Rehabilitation planning","Dr. Arjun Mehta · Consultant","Mon–Sat · 9:00 AM–7:00 PM"],
+ Oncology:["Coordinated oncology consultation and treatment planning.","Cancer screening coordination","Treatment planning","Supportive care","Dr. Rohan Kapoor · Consultant","Mon–Fri · 9:00 AM–4:00 PM"],
+ Gastroenterology:["Digestive health assessment and endoscopy coordination.","Digestive health review","Endoscopy coordination","Nutrition guidance","Dr. Vikram Shah · Consultant","Mon–Sat · 9:30 AM–5:30 PM"],
+ Paediatrics:["Child health, development and family-centred consultations.","Well-child checks","Developmental review","Acute paediatric care","Dr. Priya Menon · Consultant","Mon–Sat · 9:00 AM–6:00 PM"],
+ "Obstetrics & Gynaecology":["Women's health, preventive care and maternity support.","Women's health checks","Antenatal care","Gynaecology consultation","Fictional specialist team","Mon–Sat · 9:00 AM–6:00 PM"],
+ Pulmonology:["Respiratory assessment and long-term lung health support.","Respiratory review","Asthma & COPD support","Pulmonary testing coordination","Fictional specialist team","Mon–Sat · 10:00 AM–5:00 PM"],
+ Nephrology:["Kidney health assessment and coordinated chronic care.","Kidney function review","Hypertension support","Dialysis coordination","Fictional specialist team","Mon–Fri · 9:00 AM–4:00 PM"],
+ Dermatology:["Clinical skin, hair and nail assessment.","Skin screening","Dermatology consultation","Minor procedure coordination","Fictional specialist team","Mon–Sat · 10:00 AM–6:00 PM"],
+ "General Surgery":["Planned surgical consultation and perioperative coordination.","Surgical assessment","Pre-operative planning","Post-operative follow-up","Fictional specialist team","Mon–Sat · 9:00 AM–5:00 PM"],
+ "Emergency Medicine":["24-hour assessment for urgent and emergency presentations.","Urgent assessment","Stabilisation","Specialist escalation","24/7 emergency team","24 hours a day"]
+};
+const articles = [
+ {cat:"Heart health",title:"Understanding Your Blood Pressure Numbers",time:"5 min read",date:"12 Sep 2026",img:"https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=900&q=80",body:"Blood pressure is one of the simplest measurements used during routine care. In this fictional educational article, we explore what the two numbers represent, why trends can be more useful than a single reading, and when a conversation with a clinician may be appropriate."},
+ {cat:"Cardiology",title:"When Should You See a Cardiologist?",time:"4 min read",date:"04 Sep 2026",img:"https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=800&q=80",body:"A cardiology consultation can help clarify symptoms, risk factors and family history. This fictional guide explains common reasons a primary-care clinician may suggest specialist input."},
+ {cat:"Orthopaedics",title:"Preparing for Your First Orthopaedic Consultation",time:"6 min read",date:"29 Aug 2026",img:"https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=800&q=80",body:"Bring a short symptom history, relevant reports and a list of current medicines. The goal of a first consultation is to understand the problem and agree on sensible next steps."},
+ {cat:"Prevention",title:"Early Signs You Shouldn't Ignore",time:"7 min read",date:"20 Aug 2026",img:"https://images.unsplash.com/photo-1504439468489-c8920d796a29?auto=format&fit=crop&w=800&q=80",body:"Some symptoms deserve timely assessment. This fictional article discusses why persistent, severe or sudden symptoms should not be dismissed and why emergency symptoms need urgent attention."},
+ {cat:"Wellness",title:"A Practical Guide to Preventive Health Checkups",time:"5 min read",date:"13 Aug 2026",img:"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",body:"Preventive care works best when it is personalised to age, history and risk factors. This fictional guide offers a framework for discussing appropriate checks with a healthcare professional."}
+];
+const packages = [
+ {name:"Essential Health Check",price:"₹2,999",ideal:"Adults seeking a routine baseline",tests:["CBC","Blood sugar","Lipid profile","Blood pressure"],},
+ {name:"Executive Wellness",price:"₹6,499",ideal:"Busy adults wanting a broader review",tests:["Essential panel","ECG","Liver & kidney profile","Physician review"]},
+ {name:"Women's Preventive Care",price:"₹4,999",ideal:"Routine women's preventive care",tests:["Blood profile","Thyroid screening","Women's health review","Physician consultation"]},
+ {name:"Senior Wellness",price:"₹5,999",ideal:"Adults planning an annual review",tests:["Blood profile","ECG","Kidney profile","Geriatric review"]}
+];
+
+/* =========================================================
+   Icons / Header / Scroll
+========================================================= */
+const iconFallback = () => { if(window.lucide) lucide.createIcons(); };
+document.addEventListener("DOMContentLoaded",()=>{
+  iconFallback();
+  const header=document.querySelector(".site-header"), menu=document.getElementById("menuBtn"), mobile=document.getElementById("mobileNav");
+  menu.addEventListener("click",()=>{const open=mobile.classList.toggle("open");menu.setAttribute("aria-expanded",open);menu.innerHTML=`<i data-lucide="${open?"x":"menu"}"></i>`;iconFallback()});
+  mobile.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{mobile.classList.remove("open");menu.setAttribute("aria-expanded","false");menu.innerHTML='<i data-lucide="menu"></i>';iconFallback()}));
+  window.addEventListener("scroll",()=>{
+    header.classList.toggle("scrolled",scrollY>15);
+    document.getElementById("topBtn").classList.toggle("show",scrollY>600);
+    const sections=[...document.querySelectorAll("main section[id]")], links=[...document.querySelectorAll(".nav-links a")];
+    let current="home"; sections.forEach(s=>{if(scrollY>=s.offsetTop-130)current=s.id});
+    links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+current));
+  },{passive:true});
+  document.getElementById("topBtn").onclick=()=>scrollTo({top:0,behavior:"smooth"});
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",e=>{const id=a.getAttribute("href");if(id && id!="#" && document.querySelector(id)){e.preventDefault();document.querySelector(id).scrollIntoView({behavior:"smooth",block:"start"})}}));
+});
+
+/* =========================================================
+   Doctor Finder
+========================================================= */
+const grid=document.getElementById("doctorGrid"), specialty=document.getElementById("specialtyFilter");
+[...new Set(doctors.map(d=>d.specialty))].sort().forEach(s=>specialty.insertAdjacentHTML("beforeend",`<option>${s}</option>`));
+function renderDoctors(){
+  const q=document.getElementById("doctorSearch").value.trim().toLowerCase(), sp=specialty.value, cl=document.getElementById("clinicFilter").value, av=document.getElementById("availabilityFilter").value;
+  const filtered=doctors.filter(d=>(!q || `${d.name} ${d.specialty}`.toLowerCase().includes(q))&&(!sp||d.specialty===sp)&&(!cl||d.clinic===cl)&&(!av||d.availability===av));
+  grid.innerHTML=filtered.length?filtered.map((d,i)=>`
+    <article class="doctor-card">
+      <img class="doctor-photo" src="${d.image}" alt="${d.name}, fictional ${d.specialty} consultant" onerror="this.src='https://placehold.co/300x380/dce9e8/17394d?text=Doctor'">
+      <div><h3>${d.name}</h3><div class="doctor-meta">${d.role} · ${d.specialty}</div>
+      <div class="doctor-tags">${d.experience} · ${d.languages}<br>${d.type} · ${d.availability}</div>
+      <div class="card-actions"><button class="btn btn-text profile-btn" data-index="${doctors.indexOf(d)}">View Profile <i data-lucide="arrow-up-right"></i></button><button class="btn btn-primary book-doc" data-doctor="${d.name}">Book</button></div></div>
+    </article>`).join(""):`<div class="empty">No fictional doctors match those filters. Try a broader search.</div>`;
+  iconFallback();
+  document.querySelectorAll(".profile-btn").forEach(b=>b.onclick=()=>openDoctor(doctors[+b.dataset.index]));
+  document.querySelectorAll(".book-doc").forEach(b=>b.onclick=()=>{document.getElementById("appointment").scrollIntoView({behavior:"smooth",block:"start"});});
+}
+["doctorSearch","specialtyFilter","clinicFilter","availabilityFilter"].forEach(id=>document.getElementById(id).addEventListener("input",renderDoctors));
+renderDoctors();
+
+/* =========================================================
+   Modal system
+========================================================= */
+const modalWrap=document.getElementById("modalWrap"), modalBody=document.getElementById("modalBody"), modalTitle=document.getElementById("modalTitle");
+function openModal(title,body){
+  modalTitle.textContent=title;modalBody.innerHTML=body;modalWrap.classList.add("open");document.body.classList.add("modal-open");iconFallback();document.getElementById("closeModal").focus();
+}
+function closeModal(){modalWrap.classList.remove("open");document.body.classList.remove("modal-open")}
+document.getElementById("closeModal").onclick=closeModal;
+modalWrap.addEventListener("click",e=>{if(e.target===modalWrap)closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();document.getElementById("mobileNav").classList.remove("open")}});
+
+function openDoctor(d){
+ openModal(d.name,`<div class="doctor-profile"><img class="profile-photo" src="${d.image}" alt="${d.name}" onerror="this.src='https://placehold.co/300x380/dce9e8/17394d?text=Doctor'"><div><div class="eyebrow">${d.role}</div><h2 style="font-size:2rem;margin-top:8px">${d.specialty}</h2><p class="profile-meta">A fictional profile created for the VistaraCare website demonstration. ${d.name} is presented as a ${d.role.toLowerCase()} in ${d.specialty}.</p><div class="profile-list"><div><b>Experience</b>${d.experience}</div><div><b>Clinic</b>${d.clinic}</div><div><b>Languages</b>${d.languages}</div><div><b>Consultation</b>${d.type}</div></div><a class="btn btn-primary" href="mailto:care@vistaracare.example?subject=Appointment%20Enquiry%20-%20${encodeURIComponent(d.name)}">Email Appointment Desk <i data-lucide="mail"></i></a></div></div>`);
+}
+function openDept(name){
+ const d=deptData[name]||["Specialist-led assessment and coordinated care.","Consultation","Diagnostic coordination","Follow-up planning","Fictional specialist team","By appointment"];
+ openModal(name,`<div class="department-detail"><div><div class="eyebrow">Clinical department</div><h2 style="font-size:2.1rem">${name}</h2><p>${d[0]}</p><p>Our fictional service is designed around clear referrals, appropriate diagnostics and practical follow-up. Availability and services shown here are illustrative only.</p><a class="btn btn-primary" href="mailto:care@vistaracare.example?subject=Appointment%20Enquiry%20-%20${encodeURIComponent(name)}">Email Appointment Desk <i data-lucide="mail"></i></a></div><aside class="detail-aside"><strong>Common services</strong><ul><li>${d[1]}</li><li>${d[2]}</li><li>${d[3]}</li></ul><strong>Available specialists</strong><p style="font-size:.76rem">${d[4]}</p><strong>Consultation availability</strong><p style="font-size:.76rem">${d[5]}</p></aside></div>`);
+}
+document.querySelectorAll("[data-dept]").forEach(b=>b.addEventListener("click",()=>openDept(b.dataset.dept)));
+
+/* =========================================================
+   Appointment contact actions
+========================================================= */
+document.querySelectorAll("[data-open-appointment]").forEach(b=>b.onclick=()=>{
+  document.getElementById("appointment").scrollIntoView({behavior:"smooth",block:"start"});
+});
+/* =========================================================
+   Articles / Packages
+========================================================= */
+document.getElementById("articleGrid").innerHTML=articles.map((a,i)=>`<article class="article"><img class="article-img" src="${a.img}" alt="${a.title}" loading="lazy" onerror="this.src='https://placehold.co/800x500/e1ebeb/17394d?text=Health+Library'"><span class="article-cat">${a.cat}</span><h3>${a.title}</h3><div class="article-meta">${a.date} · ${a.time}</div><button class="btn btn-text read-article" data-index="${i}">Read Article <i data-lucide="arrow-up-right"></i></button></article>`).join("");
+iconFallback();
+document.querySelectorAll(".read-article").forEach(b=>b.onclick=()=>{const a=articles[+b.dataset.index];openModal(a.title,`<article class="article-body"><img src="${a.img}" alt="${a.title}" onerror="this.src='https://placehold.co/900x500/e1ebeb/17394d?text=Health+Library'"><div class="article-meta">${a.cat} · ${a.date} · ${a.time}</div><p>${a.body}</p><p>This demonstration content is fictional and is not medical advice. For personal health questions, speak with an appropriately qualified healthcare professional.</p></article>`)});
+document.getElementById("packageList").innerHTML=packages.map((p,i)=>`<article class="package"><div class="article-cat">Fictional package</div><h3>${p.name}</h3><div class="price">${p.price} <small>demo</small></div><p style="font-size:.75rem">Ideal for: ${p.ideal}</p><ul>${p.tests.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn ${i===1?"btn-light":"btn-primary"} package-book" data-name="${p.name}">Book Now</button></article>`).join("");
+document.querySelectorAll(".package-book").forEach(b=>b.onclick=()=>{document.getElementById("appointment").scrollIntoView({behavior:"smooth",block:"start"});showToast("Use the appointment desk to enquire about this package.");});
+
+/* =========================================================
+   Timeline / Contact / FAQ / Toast / Reveal
+========================================================= */
+document.querySelectorAll(".timeline-item").forEach(item=>item.onclick=()=>{document.querySelectorAll(".timeline-item").forEach(x=>x.classList.remove("active"));item.classList.add("active")});
+document.querySelectorAll("details").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)document.querySelectorAll("details").forEach(x=>{if(x!==d)x.removeAttribute("open")})}));
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove("show"),3000)}
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll(".reveal").forEach(e=>observer.observe(e));
+document.getElementById("findDoctorQuick").addEventListener("click",()=>setTimeout(()=>document.getElementById("doctorSearch").focus(),450));
+    </script>
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" onload="lucide.createIcons()"></script>
+</body>
+</html>
