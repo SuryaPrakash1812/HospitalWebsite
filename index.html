@@ -335,9 +335,9 @@ p{margin:0 0 18px;color:var(--muted)}
 .footer a,.footer span{display:block;font-size:.77rem;color:#b3c5ca;margin:9px 0}
 .footer a:hover{color:white}
 .footer-note{font-size:.72rem;color:#839ca4;max-width:250px;margin-top:17px}
-.footer-bottom{border-top:1px solid #284452;padding-top:17px;display:flex;justify-content:space-between;gap:20px;font-size:.68rem;color:#8299a1}
+.footer-bottom{border-top:1px solid #284452;padding-top:17px;display:flex;justify-content:space-between;gap:20px;font-size:.68rem;color:#8299a1} .footer-end-actions{display:flex;justify-content:flex-end;margin-top:22px;margin-bottom:4px}
 
-.whatsapp-float{position:fixed;right:76px;bottom:20px;z-index:45;display:flex;align-items:center;gap:9px;height:48px;padding:0 15px 0 11px;background:#188c78;color:white;border-radius:999px;box-shadow:0 10px 30px rgba(16,40,58,.20);font-size:.76rem;font-weight:700;transition:.25s ease}
+.whatsapp-float{position:fixed;right:20px;bottom:20px;z-index:45;display:flex;align-items:center;gap:9px;height:48px;padding:0 15px 0 11px;background:#188c78;color:white;border-radius:999px;box-shadow:0 10px 30px rgba(16,40,58,.20);font-size:.76rem;font-weight:700;transition:.25s ease}
 .whatsapp-float:hover{background:#137462;transform:translateY(-2px);box-shadow:0 13px 34px rgba(16,40,58,.25)}
 .whatsapp-float svg{width:27px;height:27px;fill:currentColor}
 .social-links{display:flex;flex-direction:column;gap:8px}
@@ -392,7 +392,7 @@ p{margin:0 0 18px;color:var(--muted)}
 }
 @media(max-width:900px){
   .section{padding:85px 0}
-  .nav{height:72px;position:relative}.nav-links,.header-actions .btn{display:none}.menu-btn{display:grid;place-items:center;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}
+  .nav{height:72px;position:relative}.nav-links,.header-actions .btn{display:none}.menu-btn{display:grid;place-items:center;position:absolute;right:20px;left:auto;top:50%;transform:translateY(-50%);margin:0}
   .mobile-nav{display:block;position:absolute;left:0;right:0;top:72px;background:white;border-bottom:1px solid var(--line);box-shadow:0 15px 30px rgba(16,40,58,.1);max-height:0;overflow:hidden;transition:max-height .35s}
   .mobile-nav.open{max-height:500px}
   .mobile-nav a{display:block;padding:15px 20px;border-top:1px solid #edf1f2;font-weight:600;font-size:.86rem}
@@ -436,7 +436,7 @@ p{margin:0 0 18px;color:var(--muted)}
   .package-list{grid-template-columns:1fr}.package{min-height:235px}
   .emergency-inner{display:block}.emergency-actions{margin-top:25px}
   .contact-form{padding:22px}.contact-actions-panel{padding:22px}.contact-action{grid-template-columns:38px 1fr}.contact-action .btn{grid-column:2;justify-self:start}.contact-emergency{align-items:flex-start;flex-direction:column}.contact-emergency .btn{width:100%}.footer-grid{grid-template-columns:1fr 1fr;gap:28px}
-  .whatsapp-float{right:66px;left:auto;bottom:12px;height:44px;padding-right:13px}.whatsapp-float span{display:none}.whatsapp-float svg{width:25px;height:25px}
+  .whatsapp-float{right:14px;left:auto;bottom:12px;height:44px;padding-right:13px}.whatsapp-float span{display:none}.whatsapp-float svg{width:25px;height:25px}
   .top-btn{right:12px;bottom:12px;width:42px;height:42px}.footer-grid>div:first-child{grid-column:span 2}.footer-grid>div:last-child{grid-column:auto}
   .footer-bottom{display:block}.footer-bottom span{display:block;margin-top:7px}
   .modal-wrap{padding:10px}.modal-body{padding:22px}.modal-head{padding:20px}
@@ -848,6 +848,7 @@ p{margin:0 0 18px;color:var(--muted)}
       </div>
       <div><h4>Emergency</h4><a href="tel:+918045678900">+91 80 4567 8900</a><span>Available 24/7</span><span>Bengaluru, Karnataka</span></div>
     </div>
+    <div class="footer-end-actions"><button class="top-btn" id="topBtn" aria-label="Back to top" title="Back to top"><i data-lucide="arrow-up"></i></button></div>
     <div class="footer-bottom"><span>© 2026 VistaraCare Medical Centre</span><span>Demo website — all information is fictional.</span></div>
   </div>
 </footer>
@@ -865,7 +866,6 @@ p{margin:0 0 18px;color:var(--muted)}
   <span>WhatsApp</span>
 </a>
 
-<button class="top-btn" id="topBtn" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <!-- Modal shell -->
@@ -927,7 +927,6 @@ document.addEventListener("DOMContentLoaded",()=>{
   mobile.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{mobile.classList.remove("open");menu.setAttribute("aria-expanded","false");menu.innerHTML='<i data-lucide="menu"></i>';iconFallback()}));
   window.addEventListener("scroll",()=>{
     header.classList.toggle("scrolled",scrollY>15);
-    document.getElementById("topBtn").classList.toggle("show",scrollY>600);
     const sections=[...document.querySelectorAll("main section[id]")], links=[...document.querySelectorAll(".nav-links a")];
     let current="home"; sections.forEach(s=>{if(scrollY>=s.offsetTop-130)current=s.id});
     links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+current));
